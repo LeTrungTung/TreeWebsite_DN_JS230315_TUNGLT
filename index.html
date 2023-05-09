@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <title>Cây cảnh Miền Trung</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/desktop.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header id="id-header">
+        <div class="row">
+          <div class="left-header col-lg-3">
+            <div class="logo" id="id-logo">
+              <img src="./images/logo/Tree-Beauty.jpg" alt="" />
+              <p>Công ty tnhh Cây Xinh</p>
+              <p>miền trung</p>
+            </div>
+          </div>
+          <div class="center-header col-lg-6">
+            <div class="title-header">
+              <a href="">Sản phẩm</a>
+              <a href="">Giới thiệu</a>
+              <a href="">Phòng trưng bày</a>
+              <a href="">Chăm sóc cây</a>
+            </div>
+            <div class="bottom-header">
+              <div>
+                <input
+                  type="search"
+                  id="input-search"
+                  placeholder="Nhập sản phẩm cần tìm"
+                />
+              </div>
+              <div>
+                <i
+                  class="fa-solid fa-magnifying-glass"
+                  id="glass-search"
+                  onclick="handleSearch()"
+                ></i>
+              </div>
+              <div id="id-cart" onclick="showCartDetail()">
+                <i class="fa-solid fa-cart-plus"></i>
+              </div>
+              <div id="count-product">
+                <span>1</span>
+              </div>
+            </div>
+          </div>
+          <div class="right-header col-lg-3" id="view-user">
+            <div>
+              <button id="btn-login" onclick="handleLogin()">
+                Đăng nhập
+              </button>
+              <!-- <div class="user-info"></div> -->
+            </div>
+            <div>
+              <button id="btn-register" onclick="handleRegister()">
+                Đăng ký
+              </button>
+              <!-- <button id="btn-logout" onclick="handleLogout()">
+                Đăng xuất
+              </button> -->
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="banner row">
+        <img src="./images/banner/banner.jpg" alt="" />
+      </div>
+      <main class="row">
+        <div class="left-main col-lg-3">
+          <ul class="list-service">
+            <h5>Danh mục sản phẩm</h5>
+            <li><a href="#tab-construct">Cây công trình</a></li>
+            <li><a href="#tab-construct">Cây xanh đô thị</a></li>
+            <li><a href="#tab-flower">Cây hoa các loại</a></li>
+            <li><a href="#tab-bonsai">Cây nghệ thuật bonsai</a></li>
+          </ul>
+          <ul class="list-service">
+            <h5>Dịch vụ cây xanh</h5>
+            <li><a href="">Cây văn phòng</a></li>
+            <li><a href="">Thi công cảnh quan</a></li>
+            <li><a href="">Chăm sóc vườn</a></li>
+          </ul>
+          <ul class="list-service">
+            <h5>Hỗ trợ trực tuyến</h5>
+            <div id="support-online">
+              <div>
+                <img
+                  src="./images/other/online-support.jfif"
+                  alt=""
+                />
+              </div>
+              <div>
+                <p>Tư vấn bán hàng</p>
+                <p>Mr. Anh: 0932.401.943</p>
+              </div>
+            </div>
+          </ul>
+          <ul class="list-service">
+            <h5>Tin tức - Bài viết</h5>
+            <div class="news">
+              <div>
+                <img src="./images/tin tức/img-1.jpg" alt="" />
+              </div>
+              <p>Thi công cảnh quan biệt thự đẹp</p>
+            </div>
+            <div class="news">
+              <div>
+                <img src="./images/tin tức/img-2.jpg" alt="" />
+              </div>
+              <p>Tiểu cảnh sân vườn</p>
+            </div>
+            <div class="news">
+              <div>
+                <img src="./images/tin tức/img-3.jpg" alt="" />
+              </div>
+              <p>Thi công sân vườn, non bộ, hồ cá</p>
+            </div>
+          </ul>
+          <ul class="list-service">
+            <h5>Phong thủy và cây xanh</h5>
+            <div class="news">
+              <div>
+                <img
+                  src="./images/phong-thuy/top-10-cay-canh-van-phong.jpg"
+                  alt=""
+                />
+              </div>
+              <p>
+                <a
+                  href="https://maxhomevn.com/top-10-cay-canh-van-phong-hop-phong-thuy-thu-hut-tai-loc/"
+                  >Top 10 cây phong thủy văn phòng</a
+                >
+              </p>
+            </div>
+            <div class="news">
+              <div>
+                <img src="./images/phong-thuy/san-vuon.jpeg" alt="" />
+              </div>
+              <p>
+                <a
+                  href="https://www.tapdoantrananh.com.vn/phong-thuy/cay-phong-thuy-san-vuon"
+                  >04 Quy tắc lựa chọn cây phong thuỷ</a
+                >
+              </p>
+            </div>
+            <div class="news">
+              <div>
+                <img
+                  src="./images/phong-thuy/hon-non-bo.jpg"
+                  alt=""
+                />
+              </div>
+              <p>
+                <a
+                  href="https://nonbo.net.vn/xem-huong-dat-hon-non-bo.html"
+                  >Xem hướng đặt hòn non bộ</a
+                >
+              </p>
+            </div>
+          </ul>
+        </div>
+        <div class="right-main col-lg-9">
+          <div class="tree-species">
+            <span id="tab-construct">cây công trình</span>
+          </div>
+          <div class="construct-tree row" id="construct-tree">
+            <div class="img-content col-lg-3 col-md-6">
+              <div class="content-overlay"></div>
+              <img
+                src="./images/construct-tree/Cay-bang-lang-tim.jpg"
+                alt=""
+                id="tree-img"
+              />
+              <button
+                class="content-details fadeIn-bottom"
+                id="view-detail"
+                onclick="handleViewDetail()"
+              >
+                Xem chi tiết
+              </button>
+              <p id="tree-name">Cây bằng lăng tím</p>
+              <p id="price">3.500.000 đồng</p>
+            </div>
+          </div>
+
+          <div class="tree-species">
+            <span id="tab-urban">cây xanh đô thị</span>
+          </div>
+          <div class="construct-tree row" id="urban-tree">
+            <div class="img-content col-lg-3 col-md-6">
+              <div class="content-overlay"></div>
+              <img
+                src="./images/urban-tree/bang-dai-loan.jpg"
+                alt=""
+              />
+              <button
+                class="content-details fadeIn-bottom"
+                id="view-detail"
+              >
+                Xem chi tiết
+              </button>
+              <p id="tree-name">Cây bàng Đài Loan</p>
+              <p id="price">4.000.000 đồng</p>
+            </div>
+          </div>
+
+          <div class="tree-species">
+            <span id="tab-flower">cây hoa các loại</span>
+          </div>
+          <div class="construct-tree row" id="flower-tree">
+            <div class="img-content col-lg-3 col-md-6">
+              <div class="content-overlay"></div>
+              <img src="./images/flower-tree/hoa-giay-2.png" alt="" />
+              <button
+                class="content-details fadeIn-bottom"
+                id="view-detail"
+              >
+                Xem chi tiết
+              </button>
+              <p id="tree-name">Cây hoa giấy</p>
+              <p id="price">5.000.000 đồng</p>
+            </div>
+          </div>
+
+          <div class="tree-species">
+            <span id="tab-bonsai"> cây nghệ thuật bonsai </span>
+          </div>
+          <div class="construct-tree row" id="bonsai-tree">
+            <div class="img-content col-lg-3 col-md-6">
+              <div class="content-overlay"></div>
+              <img src="./images/Bonsai-Japan/bonsai_3.jpg" alt="" />
+              <button
+                class="content-details fadeIn-bottom"
+                id="view-detail"
+              >
+                Xem chi tiết
+              </button>
+              <p id="tree-name">Cây thông</p>
+              <p id="price">50.000.000 đồng</p>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer>
+        <div class="row">
+          <div class="col-lg-2" id="logo-footer">
+            <img src="./images/logo/Tree-Beauty.jpg" alt="" />
+          </div>
+          <div class="col-lg-6" id="info-company">
+            <h4>công ty tnhh cây xinh miền trung</h4>
+            <p>Địa chỉ: 523/35 Cách Mạng Tháng 8, Đà Nẵng</p>
+            <p>Hotline: 0932.401.943</p>
+            <p>Email: cayxinhmientrung@gmail.com</p>
+            <p>Website: www.cayxinhmientrung.com.vn</p>
+          </div>
+          <div class="col-lg-3">
+            <a href=""><i class="fa-brands fa-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-youtube"></i></a>
+            <a href=""><i class="fa-brands fa-telegram"></i></a>
+          </div>
+          <div class="col-lg-1" id="back-top">
+            <a href="#id-header"
+              ><i class="fa-solid fa-circle-chevron-up"></i
+            ></a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="/js/script.js"></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

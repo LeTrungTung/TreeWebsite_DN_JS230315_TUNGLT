@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Đăng nhập</title>
+    <link rel="stylesheet" href="/css/login.css" />
+  </head>
+  <body>
+    <div class="wrap-form">
+      <form action="" id="form-login">
+        <h1>Đăng nhập tài khoản</h1>
+        <div class="form-card">
+          <label for=""><b>Email:</b></label>
+          <input
+            type="email"
+            placeholder="Nhập địa chỉ Email"
+            name="email"
+            id="email-input"
+          />
+          <p class="error" id="er-email"></p>
+        </div>
+        <div class="form-card">
+          <label for=""><b>Password:</b></label>
+          <input
+            type="password"
+            placeholder="Nhập password"
+            name="password"
+            id="password-input"
+          />
+          <!-- <p class="error" id="er-password"></p> -->
+        </div>
+        <div class="cl-login">
+          <input type="submit" value="Đăng nhập" />
+        </div>
+      </form>
+    </div>
+    <script src="/js/login.js"></script>
+  </body>
+</html>

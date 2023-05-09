@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Đăng ký</title>
+    <link rel="stylesheet" href="/css/register.css" />
+  </head>
+  <body>
+    <div class="wrap-form">
+      <form action="" id="form-register">
+        <h1>Đăng ký thành viên</h1>
+        <div class="form-card">
+          <label for=""><b>Email:</b></label>
+          <input
+            type="email"
+            placeholder="Nhập Email của bạn"
+            name="email"
+          />
+          <p class="error" id="er-email"></p>
+        </div>
+
+        <div class="form-card">
+          <label for=""><b>Tên người dùng:</b></label>
+          <input
+            type="text"
+            placeholder="Nhập tên người dùng"
+            name="username"
+          />
+          <p class="error" id="er-user"></p>
+        </div>
+        <div class="form-card">
+          <label for=""><b>Password:</b></label>
+          <input
+            type="password"
+            placeholder="Nhập password của bạn"
+            name="password"
+          />
+          <p class="error" id="er-password"></p>
+        </div>
+        <div class="form-card">
+          <label for=""><b>Nhập lại Password:</b></label>
+          <input
+            type="password"
+            placeholder="Nhập lại password"
+            name="confirmpassword"
+          />
+          <p class="error" id="er-confirm-password"></p>
+        </div>
+        <div class="cl-register">
+          <input type="submit" value="Đăng ký" />
+        </div>
+      </form>
+    </div>
+
+    <script src="/js/register.js"></script>
+  </body>
+</html>

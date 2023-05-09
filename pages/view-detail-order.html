@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <title>Chi tiết đơn hàng</title>
+    <style>
+      body {
+        background-color: #fff3ed;
+        margin: 0 auto;
+        width: 100%;
+        /* padding: 20px 50px; */
+      }
+      header {
+        background-color: white;
+        padding: 10px 20px 0;
+        margin-left: 0;
+      }
+      table {
+        border-collapse: separate;
+        border-spacing: 0 1em;
+        padding: 20px 50px;
+        border-radius: 10px;
+      }
+      tr {
+        margin-top: 30px;
+      }
+      th,
+      td {
+        margin-top: 50px;
+        margin-bottom: 20px;
+        background-color: white;
+      }
+      header img {
+        width: 80px;
+        height: 80px;
+      }
+      header > div {
+        display: flex;
+        /* gap: 30px; */
+        align-items: center;
+        padding-left: 100px;
+      }
+      #company {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+        padding-right: 20px;
+        color: green;
+      }
+      #title {
+        padding-left: 30px;
+        border-left: 3px solid #d69643;
+        color: green;
+        font-size: 25px;
+      }
+      .center {
+        text-align: center;
+      }
+      #buy {
+        background-color: green;
+        color: white;
+        padding: 10px 50px;
+        border: none;
+        border-radius: 5px;
+      }
+      #id-delete {
+        background-color: rgb(192, 199, 99);
+        border: none;
+        border-radius: 5px;
+        color: white;
+      }
+      #number-product {
+        max-width: 60px;
+        text-align: center;
+        border: none;
+        padding: 0 8px;
+        margin-left: 3px;
+        font-weight: 400;
+      }
+      .quantity {
+        padding: 3px 10px;
+        font-size: 20px;
+        color: #a7959e;
+        cursor: pointer;
+      }
+      #show-image img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <img src="../images/logo/Tree-Beauty.jpg" alt="" />
+        <div id="company">
+          <b>CÂY XINH</b>
+          <b>MIỀN TRUNG</b>
+        </div>
+        <b id="title">Chi tiết đơn hàng</b>
+      </div>
+    </header>
+    <table cellpadding="20" class="container" id="table-product">
+      <thead>
+        <tr>
+          <th class="col-lg-1" colspan="6">Thông tin sản phẩm</th>
+        </tr>
+        <tr>
+          <th class="col-lg-2">Sản phẩm</th>
+          <th class="col-lg-3">Hình ảnh</th>
+          <th class="col-lg-2">Phân loại sản phẩm</th>
+          <th class="col-lg-2 center">Đơn giá</th>
+          <th class="col-lg-2 center">Số lượng</th>
+        </tr>
+      </thead>
+      <tbody id="content-cart">
+        <tr>
+          <td class="col-lg-2">Sản phẩm</td>
+          <td class="col-lg-3">Hình ảnh</td>
+          <td class="col-lg-2">Phân loại cây</td>
+          <td class="col-lg-2 center">3.000.000 đồng</td>
+          <td class="col-lg-2 center">2</td>
+        </tr>
+      </tbody>
+      <tfoot id="id-total">
+        <tr>
+          <td class="col-lg-12" colspan="3"></td>
+          <td class="col-lg-12 center" colspan="3">
+            Tổng cộng:
+            <b> 20.000.000 đồng</b>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    <table cellpadding="20" class="container" id="info-Ship">
+      <tr>
+        <th class="col-lg-12" colspan="6">
+          Thông tin người nhận hàng
+        </th>
+      </tr>
+      <tr>
+        <th class="col-lg-2">Họ và tên</th>
+        <th class="col-lg-2">Số điện thoại</th>
+        <th class="col-lg-2">Địa chỉ nhận hàng</th>
+        <th class="col-lg-2 center">Tỉnh/TP</th>
+        <th class="col-lg-2 center">Quận/Huyện</th>
+        <th class="col-lg-2 center">Phường/Xã</th>
+      </tr>
+      <tr>
+        <td class="col-lg-3">Lê Văn A</td>
+        <td class="col-lg-2">0909123456</td>
+        <td class="col-lg-2">đường CMT8</td>
+        <td class="col-lg-2 center">Đà Nẵng</td>
+        <td class="col-lg-2 center">Cẩm Lệ</td>
+        <td class="col-lg-2 center">Hoà thọ Đông</td>
+      </tr>
+    </table>
+    <script>
+      const url = new URL(document.URL);
+      const userAndDate = url.searchParams.get("userAndDate");
+      // console.log("x", userAndDate);
+      let toArray = userAndDate.split(",");
+      // Lấy tên username và ngày tạo sản phẩm từ file Quản lý đơn hàng
+      let userOrder = toArray[0];
+      let dateOrder = toArray[1];
+      // console.log("22", userOrder, dateOrder);
+      const areaInfoProduct = document.querySelector("#content-cart");
+      const areaSumProduct = document.querySelector("#id-total");
+      const areaInfoShip = document.querySelector("#info-Ship");
+      const userDB = JSON.parse(localStorage.getItem("users"));
+      // console.log(11, userDB);
+      let infoProduct = "";
+      let infoShip = "";
+      let sumProduct = "";
+
+      let sumItem;
+
+      userDB.forEach((user) => {
+        if (user.username == userOrder) {
+          user.order.forEach((order, pos) => {
+            if (order.date == dateOrder) {
+              user.cartHistory[pos].forEach((cart) => {
+                infoProduct += `<tr>
+          <td class="col-lg-2">${cart.name}</td>
+          <td class="col-lg-3" id="show-image"><img src="${cart.imageUrl}">
+            
+            </td>
+          <td class="col-lg-2">${cart.specy}</td>
+          <td class="col-lg-2 center">${cart.price}</td>
+          <td class="col-lg-1 center">${cart.quantity}</td>     
+          
+        </tr>`;
+              });
+              infoShip += `<tr>
+        <th class="col-lg-12" colspan="6">
+          Thông tin người nhận hàng
+        </th>
+      </tr>
+      <tr>
+        <th class="col-lg-2">Họ và tên</th>
+        <th class="col-lg-2">Số điện thoại</th>
+        <th class="col-lg-2">Địa chỉ nhận hàng</th>
+        <th class="col-lg-2 center">Tỉnh/TP</th>
+        <th class="col-lg-2 center">Quận/Huyện</th>
+        <th class="col-lg-2 center">Phường/Xã</th>        
+      </tr>
+      <tr>
+        <td class="col-lg-2">${user.order[pos].fullName}</td>
+        <td class="col-lg-2">${user.order[pos].phone}</td>
+        <td class="col-lg-2">${user.order[pos].address}</td>
+        <td class="col-lg-2 center">${user.order[pos].city}</td>
+        <td class="col-lg-2 center">${user.order[pos].district}</td>
+        <td class="col-lg-2 center">>${user.order[pos].ward}</td>
+      </tr>`;
+              sumItem = user.totalAmount[pos];
+            }
+            return;
+          });
+        }
+        return;
+      });
+      areaInfoProduct.innerHTML = infoProduct;
+      sumProduct += `<tr>
+          <td class="col-lg-12" colspan="3"></td>
+          <td class="col-lg-12 center" colspan="3">
+            Tổng cộng:
+            <b>${sumItem} đồng</b>
+          </td>
+        </tr>`;
+      areaSumProduct.innerHTML = sumProduct;
+      areaInfoShip.innerHTML = infoShip;
+
+      // Render đơn hàng chi tiết
+      // renderDetailOrder();
+      // function renderDetailOrder() {
+      //
+      // }
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <title>Danh sách sản phẩm</title>
+
+    <style>
+      body {
+        background: #eee;
+        margin: 0;
+        padding: 0;
+      }
+
+      .ratings i {
+        font-size: 16px;
+        color: red;
+      }
+      .strike-text {
+        color: red;
+        text-decoration: line-through;
+      }
+      .product-image {
+        /* width: 100%; */
+        width: 200px;
+        height: 250px;
+        object-fit: cover;
+      }
+      /* .dot {
+        height: 7px;
+        width: 7px;
+        margin-left: 6px;
+        margin-right: 6px;
+        margin-top: 3px;
+        background-color: blue;
+        border-radius: 50%;
+        display: inline-block;
+      } */
+      .spec-1 {
+        color: #938787;
+        font-size: 15px;
+      }
+      h2 {
+        color: blueviolet;
+        text-align: center;
+      }
+      h5 {
+        font-weight: 400;
+      }
+      .para {
+        font-size: 16px;
+      }
+      .edit-product,
+      .add-product {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin: 30px 10px 30px;
+        border: none;
+        background-color: white;
+        padding: 20px;
+      }
+      .edit-product h3 {
+        color: blueviolet;
+        padding-bottom: 20px;
+      }
+      .add-product h3 {
+        color: blueviolet;
+        padding-bottom: 20px;
+      }
+      #area-image,
+      #area-image-add {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+      }
+
+      #area-detail-all,
+      #area-detail-add {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .search-product {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+        margin: 30px 10px 30px;
+        border: none;
+        background-color: white;
+        padding: 20px;
+      }
+      #area-detail-all input {
+        width: 400px;
+      }
+      #area-detail-add input {
+        width: 400px;
+      }
+      .input-detail-product {
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+      }
+      .input-detail-product input {
+        border-radius: 5px;
+        padding: 5px 10px;
+      }
+      .wrap-edit,
+      .wrap-add {
+        display: flex;
+        justify-content: center;
+      }
+      #submit-edit,
+      #submit-add {
+        margin-top: 20px;
+      }
+      button a {
+        text-decoration: none;
+        color: white;
+      }
+      button a:hover {
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Area Edit sản phẩm -->
+    <div class="edit-product" id="backtop">
+      <h3>Sửa thông tin sản phẩm</h3>
+      <div class="wrap-edit">
+        <div id="area-image">
+          <label for="">Hình ảnh sản phẩm</label>
+          <input type="file" id="image-url" />
+        </div>
+        <div id="area-detail-all">
+          <div class="input-detail-product">
+            <label for="">Id sản phẩm</label>
+            <input type="text" id="id-product" disabled />
+          </div>
+          <div class="input-detail-product">
+            <label for="">Tên sản phẩm</label>
+            <input
+              type="text"
+              id="name-product"
+              placeholder="Nhập tên sản phẩm"
+            />
+          </div>
+          <div class="input-detail-product">
+            <label for="">Loại cây</label>
+            <input
+              type="text"
+              id="tree-specy"
+              placeholder="Nhập phân loại cây"
+            />
+          </div>
+          <div class="input-detail-product">
+            <label for="">Mô tả sản phẩm</label>
+            <textarea
+              name=""
+              id="tree-detail"
+              rows="3"
+              placeholder="Nhập mô tả chi tiết sản phẩm"
+              style="width: 400px"
+            ></textarea>
+          </div>
+          <div class="input-detail-product">
+            <label for="">Giá sản phẩm</label>
+            <input
+              type="text"
+              id="name-price"
+              placeholder="Nhập giá sản phẩm ...đồng"
+            />
+          </div>
+        </div>
+      </div>
+      <div>
+        <button
+          class="btn btn-primary"
+          id="submit-edit"
+          onclick="saveEdit()"
+        >
+          Lưu hiệu chỉnh sản phẩm
+        </button>
+      </div>
+    </div>
+
+    <!-- Area Thêm sản phẩm -->
+    <div class="add-product">
+      <h3>Thêm sản phẩm mới</h3>
+      <div class="wrap-add">
+        <div id="area-image-add">
+          <label for="">Hình ảnh sản phẩm</label>
+          <input type="file" id="image-url-add" />
+        </div>
+        <div id="area-detail-add">
+          <div class="input-detail-product">
+            <label for="">Id sản phẩm</label>
+            <input
+              type="text"
+              id="id-product-add"
+              value="Tree-"
+              placeholder="Tree-..."
+            />
+          </div>
+          <div class="input-detail-product">
+            <label for="">Tên sản phẩm</label>
+            <input
+              type="text"
+              id="name-product-add"
+              placeholder="Nhập tên sản phẩm"
+            />
+          </div>
+          <div class="input-detail-product">
+            <label for="">Loại cây</label>
+            <select id="specy-add" style="width: 400px; padding: 5px">
+              <option value="Cây công trình">Cây công trình</option>
+              <option value="Cây xanh đô thị">Cây xanh đô thị</option>
+              <option value="Cây hoa các loại">
+                Cây hoa các loại
+              </option>
+              <option value="Cây nghệ thuật Bonsai">
+                Cây nghệ thuật Bonsai
+              </option>
+            </select>
+          </div>
+          <div class="input-detail-product">
+            <label for="">Mô tả sản phẩm</label>
+            <textarea
+              name=""
+              id="detail-add"
+              rows="3"
+              placeholder="Nhập mô tả chi tiết sản phẩm"
+              style="width: 400px"
+            ></textarea>
+          </div>
+          <div class="input-detail-product">
+            <label for="">Giá sản phẩm</label>
+            <input
+              type="text"
+              id="price-add"
+              placeholder="... đồng"
+              value="... đồng"
+            />
+          </div>
+        </div>
+      </div>
+      <div>
+        <button
+          class="btn btn-primary"
+          id="submit-add"
+          onclick="handleAdd()"
+        >
+          Thêm sản phẩm mới
+        </button>
+      </div>
+    </div>
+
+    <!-- Tìm kiếm sản phẩm -->
+    <div class="search-product">
+      <div class="wrap-search">
+        <input
+          type="search"
+          id="search-product"
+          placeholder="Nhập từ khoá tìm kiếm"
+          style="width: 500px; padding: 10px"
+        />
+      </div>
+      <div>
+        <button
+          class="btn btn-primary"
+          id="submit-search"
+          onclick="handleSearch()"
+        >
+          Tìm sản phẩm
+        </button>
+      </div>
+    </div>
+
+    <h2>Cây công trình</h2>
+    <div class="construct-tree" id="construct-tree">
+      <div class="container mt-5 mb-5">
+        <div class="d-flex justify-content-center row">
+          <div class="col-md-10">
+            <div class="row p-2 bg-white border rounded">
+              <div class="col-md-3 mt-1">
+                <img
+                  class="img-fluid img-responsive rounded product-image"
+                  src="/images/Bonsai-Japan/bonsai_1.jpg"
+                />
+              </div>
+              <div class="col-md-6 mt-1">
+                <h4>Quant olap shirts</h4>
+                <div class="d-flex flex-row">
+                  <div class="ratings mr-2">
+                    <i class="fa fa-star"></i
+                    ><i class="fa fa-star"></i
+                    ><i class="fa fa-star"></i
+                    ><i class="fa fa-star"></i>
+                  </div>
+                </div>
+                <div class="mt-1 mb-1 spec-1">
+                  Loại cây: <span></span>
+                </div>
+                <p class="text-justify text-truncate para mb-0">
+                  There are many variations of passages of Lorem Ipsum
+                  available, but the majority have suffered alteration
+                  in some form, by injected humour, or randomised
+                  words which don't look even slightly believable.<br /><br />
+                </p>
+              </div>
+              <div
+                class="align-items-center align-content-center col-md-3 border-left mt-1"
+              >
+                <div class="d-flex flex-row align-items-center">
+                  <h5>Giá:</h5>
+                  <h4 class="mr-1">4.000.000 đồng</h4>
+                </div>
+
+                <div class="d-flex flex-column mt-4">
+                  <button
+                    class="btn btn-primary btn-sm"
+                    type="button"
+                  >
+                    Thêm vào giỏ hàng</button
+                  ><button
+                    class="btn btn-outline-primary btn-sm mt-2"
+                    type="button"
+                  >
+                    Like sản phẩm
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Cây xanh đô thị</h2>
+    <div class="construct-tree" id="urban-tree">
+      <div class="container mt-5 mb-5">
+        <div class="d-flex justify-content-center row">
+          <div class="col-md-10">
+            <div class="row p-2 bg-white border rounded">
+              <div class="col-md-3 mt-1">
+                <img
+                  class="img-fluid img-responsive rounded product-image"
+                  src="/images/urban-tree/bang-dai-loan.jpg"
+                />
+              </div>
+              <div class="col-md-6 mt-1">
+                <h4>Cây bàng Đài Loan</h4>
+                <div class="d-flex flex-row">
+                  <div class="ratings mr-2">
+                    <i class="fa fa-star"></i
+                    ><i class="fa fa-star"></i
+                    ><i class="fa fa-star"></i
+                    ><i class="fa fa-star"></i>
+                  </div>
+                </div>
+                <div class="mt-1 mb-1 spec-1">
+                  Loại cây: <span></span>
+                </div>
+                <p class="text-justify text-truncate para mb-0">
+                  There are many variations of passages of Lorem Ipsum
+                  available, but the majority have suffered alteration
+                  in some form, by injected humour, or randomised
+                  words which don't look even slightly believable.<br /><br />
+                </p>
+              </div>
+              <div
+                class="align-items-center align-content-center col-md-3 border-left mt-1"
+              >
+                <div class="d-flex flex-row align-items-center">
+                  <h5>Giá:</h5>
+                  <h4 class="mr-1">4.000.000 đồng</h4>
+                </div>
+
+                <div class="d-flex flex-column mt-4">
+                  <button
+                    class="btn btn-primary btn-sm"
+                    type="button"
+                  >
+                    Thêm vào giở hàng</button
+                  ><button
+                    class="btn btn-outline-primary btn-sm mt-2"
+                    type="button"
+                  >
+                    Like sản phẩm
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Cây hoa các loại</h2>
+    <div class="construct-tree" id="id-flower">
+      <div class="container mt-5 mb-5">
+        <div class="d-flex justify-content-center row">
+          <div class="col-md-10">
+            <div class="row p-2 bg-white border rounded">
+              <div class="col-md-3 mt-1">
+                <img
+                  class="img-fluid img-responsive rounded product-image"
+                  src="/images/flower-tree/hoa-giay-2.png"
+                />
+              </div>
+              <div class="col-md-6 mt-1">
+                <h4>Cây hoa giấy</h4>
+                <div class="d-flex flex-row">
+                  <div class="ratings mr-2">
+                    <i class="fa fa-star"></i
+                    ><i class="fa fa-star"></i
+                    ><i class="fa fa-star"></i
+                    ><i class="fa fa-star"></i>
+                  </div>
+                </div>
+                <div class="mt-1 mb-1 spec-1">
+                  Loại cây: <span></span>
+                </div>
+                <p class="text-justify text-truncate para mb-0">
+                  There are many variations of passages of Lorem Ipsum
+                  available, but the majority have suffered alteration
+                  in some form, by injected humour, or randomised
+                  words which don't look even slightly believable.<br /><br />
+                </p>
+              </div>
+              <div
+                class="align-items-center align-content-center col-md-3 border-left mt-1"
+              >
+                <div class="d-flex flex-row align-items-center">
+                  <h5>Giá:</h5>
+                  <h4 class="mr-1">4.000.000 đồng</h4>
+                </div>
+
+                <div class="d-flex flex-column mt-4">
+                  <button
+                    class="btn btn-primary btn-sm"
+                    type="button"
+                  >
+                    Thêm vào giỏ hàng</button
+                  ><button
+                    class="btn btn-outline-primary btn-sm mt-2"
+                    type="button"
+                  >
+                    Like sản phẩm
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2>Cây nghệ thuật Bonsai</h2>
+    <div class="construct-tree" id="bonsai-tree">
+      <div class="container mt-5 mb-5">
+        <div class="d-flex justify-content-center row">
+          <div class="col-md-10">
+            <div class="row p-2 bg-white border rounded">
+              <div class="col-md-3 mt-1">
+                <img
+                  class="img-fluid img-responsive rounded product-image"
+                  src="/images/Bonsai-Japan/cay-phong.jpg"
+                />
+              </div>
+              <div class="col-md-6 mt-1">
+                <h4>Cây phong</h4>
+                <div class="d-flex flex-row">
+                  <div class="ratings mr-2">
+                    <i class="fa fa-star"></i
+                    ><i class="fa fa-star"></i
+                    ><i class="fa fa-star"></i
+                    ><i class="fa fa-star"></i>
+                  </div>
+                </div>
+                <div class="mt-1 mb-1 spec-1">
+                  Loại cây: <span></span>
+                </div>
+                <p class="text-justify text-truncate para mb-0">
+                  There are many variations of passages of Lorem Ipsum
+                  available, but the majority have suffered alteration
+                  in some form, by injected humour, or randomised
+                  words which don't look even slightly believable.<br /><br />
+                </p>
+              </div>
+              <div
+                class="align-items-center align-content-center col-md-3 border-left mt-1"
+              >
+                <div class="d-flex flex-row align-items-center">
+                  <h5>Giá:</h5>
+                  <h4 class="mr-1">4.000.000 đồng</h4>
+                </div>
+
+                <div class="d-flex flex-column mt-4">
+                  <button
+                    class="btn btn-primary btn-sm"
+                    type="button"
+                  >
+                    Thêm vào giở hàng</button
+                  ><button
+                    class="btn btn-outline-primary btn-sm mt-2"
+                    type="button"
+                  >
+                    Like sản phẩm
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Đầu vào danh mục sản phẩm
+      dataTree = [
+        {
+          specy: "Cây công trình",
+          name: "Cây bằng lăng tím",
+          price: "3.500.000 đồng",
+          imageUrl: "/images/construct-tree/Cay-bang-lang-tim.jpg",
+          id: "Tree_1",
+          detail: "Cây cao từ 2-2,5m, đường kính từ 10-15cm",
+        },
+        {
+          specy: "Cây công trình",
+          name: "Cây phượng vỹ",
+          price: "4.000.000 đồng",
+          imageUrl: "/images/construct-tree/cay-phuong-vi.jpg",
+          id: "Tree_2",
+          detail: "Cây cao từ 3-4m, đường kính từ 15-20cm",
+        },
+        {
+          specy: "Cây công trình",
+          name: "Cây sưa vàng",
+          price: "8.000.000 đồng",
+          imageUrl: "/images/construct-tree/cay-sua-vang.jpg",
+          id: "Tree_3",
+          detail: "Cây cao từ 3,5-4m, đường kính từ 15-20cm",
+        },
+        {
+          specy: "Cây công trình",
+          name: "Cây sung",
+          price: "6.000.000 đồng",
+          imageUrl: "/images/construct-tree/cay-sung-3.jpg",
+          id: "Tree_4",
+          detail: "Cây cao từ 3,5-4m, đường kính từ 20-25cm",
+        },
+        {
+          specy: "Cây công trình",
+          name: "Cây chà là",
+          price: "3.000.000 đồng",
+          imageUrl: "/images/construct-tree/cha-la.jpg",
+          id: "Tree_5",
+          detail: "Cây cao từ 1,5-2m, đường kính từ 10-15cm",
+        },
+        {
+          specy: "Cây công trình",
+          name: "Cây bách xanh",
+          price: "2.000.000 đồng",
+          imageUrl: "/images/construct-tree/cay-bach-xanh.jpg",
+          id: "Tree_6",
+          detail: "Cây cao từ 3,5-4m, đường kính từ 15-20cm",
+        },
+        {
+          specy: "Cây công trình",
+          name: "Cây sưa vàng",
+          price: "8.000.000 đồng",
+          imageUrl: "/images/construct-tree/cay-sua-vang.jpg",
+          id: "Tree_7",
+          detail: "Cây cao từ 3,5-4m, đường kính từ 15-20cm",
+        },
+        {
+          specy: "Cây công trình",
+          name: "Cây xà cừ",
+          price: "1.800.000 đồng",
+          imageUrl: "/images/construct-tree/xa-cu.jpg",
+          id: "Tree_8",
+          detail: "Cây cao từ 3,0-3,5m, đường kính từ 10-15cm",
+        },
+        {
+          specy: "Cây xanh đô thị",
+          name: "Cây bàng Đài Loan",
+          price: "4.000.000 đồng",
+          imageUrl: "/images/urban-tree/bang-dai-loan.jpg",
+          id: "Tree_9",
+          detail: "Cây cao từ 2-2,5m, đường kính từ 10-15cm",
+        },
+        {
+          specy: "Cây xanh đô thị",
+          name: "Cây cau vua",
+          price: "6.000.000 đồng",
+          imageUrl: "/images/urban-tree/cau-vua.jpg",
+          id: "Tree_10",
+          detail: "Cây cao từ 3-3,5m, đường kính từ 20-25cm",
+        },
+        {
+          specy: "Cây xanh đô thị",
+          name: "Cây dừa",
+          price: "3.000.000 đồng",
+          imageUrl: "/images/urban-tree/cay-dua.jpg",
+          id: "Tree_11",
+          detail: "Cây cao từ 2-2,5m, đường kính từ 15-20cm",
+        },
+        {
+          specy: "Cây xanh đô thị",
+          name: "Cây hoa sữa",
+          price: "3.500.000 đồng",
+          imageUrl: "/images/urban-tree/hoa-sua-4.jpg",
+          id: "Tree_12",
+          detail: "Cây cao từ 2-2,5m, đường kính từ 10-15cm",
+        },
+        {
+          specy: "Cây hoa các loại",
+          name: "Cây loa kèn",
+          price: "5.000.000 đồng",
+          imageUrl: "/images/flower-tree/loa-ken.jpg",
+          id: "Tree_13",
+          detail: "Cây cao từ 1-1,5m, đường kính từ 10-15cm",
+        },
+        {
+          specy: "Cây hoa các loại",
+          name: "Cây hoa lài",
+          price: "1.000.000 đồng",
+          imageUrl: "/images/flower-tree/hoa-lai.jpg",
+          id: "Tree_14",
+          detail: "Cây cao từ 0,5-1m, đường kính từ 5-10cm",
+        },
+        {
+          specy: "Cây hoa các loại",
+          name: "Cây hoa sứ",
+          price: "1.000.000 đồng",
+          imageUrl: "/images/flower-tree/hoa-su-1.jpg",
+          id: "Tree_15",
+          detail: "Cây cao từ 0,5m, đường kính từ 20-30cm",
+        },
+        {
+          specy: "Cây hoa các loại",
+          name: "Cây hoa hồng",
+          price: "2.500.000 đồng",
+          imageUrl: "/images/flower-tree/hong-than-go.jpg",
+          id: "Tree_16",
+          detail: "Cây cao từ 1-1,5m, đường kính từ 5-8cm",
+        },
+        {
+          specy: "Cây nghệ thuật Bonsai",
+          name: "Cây thông",
+          price: "50.000.000 đồng",
+          imageUrl: "/images/Bonsai-Japan/bonsai_3.jpg",
+          id: "Tree_17",
+          detail: "Cây cao từ 0,5m, đường kính từ 15-20m",
+        },
+        {
+          specy: "Cây nghệ thuật Bonsai",
+          name: "Cây phong",
+          price: "45.000.000 đồng",
+          imageUrl: "/images/Bonsai-Japan/cay-phong.jpg",
+          id: "Tree_18",
+          detail: "Cây cao từ 0,5m, đường kính từ 15-20m",
+        },
+        {
+          specy: "Cây nghệ thuật Bonsai",
+          name: "Cây mai trắng",
+          price: "40.000.000 đồng",
+          imageUrl: "/images/Bonsai-Japan/bonsai_5.jpg",
+          id: "Tree_19",
+          detail: "Cây cao từ 0,5m, đường kính từ 15-20m",
+        },
+        {
+          specy: "Cây nghệ thuật Bonsai",
+          name: "Cây sanh",
+          price: "32.000.000 đồng",
+          imageUrl: "/images/Bonsai-Japan/bonsai_2.jpg",
+          id: "Tree_20",
+          detail: "Cây cao từ 0,5m, đường kính từ 15-20m",
+        },
+      ];
+      const productsTree =
+        JSON.parse(localStorage.getItem("products")) ?? [];
+      if (productsTree.length == 0) {
+        productsTree.push(...dataTree);
+      }
+      localStorage.setItem("products", JSON.stringify(productsTree));
+
+      renderTree();
+
+      // render sản phẩm Cây công trình
+      function renderTree() {
+        const productsTree =
+          JSON.parse(localStorage.getItem("products")) ?? []; //nếu như chưa có spham thì cho = rỗng
+
+        // B2 lấy element sẽ render sản phẩm
+        const constructTree =
+          document.querySelector("#construct-tree");
+        const urbanTree = document.querySelector("#urban-tree");
+        const flowerTree = document.querySelector("#id-flower");
+        const bonsaiTree = document.querySelector("#bonsai-tree");
+
+        let contentElement = "";
+        // Lọc sản phẩm trong data theo phân loại cây
+        const constructTreeDB = productsTree.filter(
+          (product) => product.specy == "Cây công trình"
+        );
+        const urbanTreeDB = productsTree.filter(
+          (product) => product.specy == "Cây xanh đô thị"
+        );
+        const flowerTreeDB = productsTree.filter(
+          (product) => product.specy == "Cây hoa các loại"
+        );
+        const bonsaiTreeDB = productsTree.filter(
+          (product) => product.specy == "Cây nghệ thuật Bonsai"
+        );
+
+        //  render sản phẩm cây công trình
+        let contentConstruct = "";
+        constructTreeDB.forEach((product) => {
+          contentConstruct += `<div class="container">
+                <div class="d-flex justify-content-center row">
+                  <div class="col-md-10">
+                    <div class="row p-2 bg-white border rounded">
+                      <div class="col-md-3 mt-1">
+                        <img
+                          class="img-fluid img-responsive rounded product-image"
+                          src="${product.imageUrl}"
+                        />
+                      </div>
+                      <div class="col-md-6 mt-1">
+                        <h4>${product.name}</h4>
+                        <div class="d-flex flex-row">
+                          <div class="ratings mr-2">
+                            <i class="fa fa-star"></i
+                            ><i class="fa fa-star"></i
+                            ><i class="fa fa-star"></i
+                            ><i class="fa fa-star"></i>
+                          </div>
+                        </div>
+                        <div class="mt-1 mb-1 spec-1">
+                        Loại cây: <span>${product.specy}</span>
+                      </div>
+
+                        <p class="text-justify text-truncate para mb-0">
+                        ${product.detail}
+                        <br /><br />
+                        </p>
+                      </div>
+                      <div
+                        class="align-items-center align-content-center col-md-3 border-left mt-1"
+                      >
+                        <div class="d-flex flex-column align-items-left">
+                          <h5>Giá:</h5>
+                          <h4 class="mr-1">${product.price}</h4>
+                        </div>
+
+                        <div class="d-flex flex-column mt-4">
+                          <button
+                            class="btn btn-primary btn-sm"
+                            type="button" onclick=handleEdit('${product.id}')
+                          >
+                          <a href="#backtop">Sửa sản phẩm</a></button
+                          ><button
+                            class="btn btn-outline-primary btn-sm mt-2"
+                            type="button" onclick=handleDelete('${product.id}')
+                          >
+                          Xoá sản phẩm
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>`;
+        });
+        constructTree.innerHTML = contentConstruct;
+
+        //  render sản phẩm cây xanh đô thị
+        let contentUrban = "";
+        urbanTreeDB.forEach((product) => {
+          contentUrban += `<div class="container">
+                <div class="d-flex justify-content-center row">
+                  <div class="col-md-10">
+                    <div class="row p-2 bg-white border rounded">
+                      <div class="col-md-3 mt-1">
+                        <img
+                          class="img-fluid img-responsive rounded product-image"
+                          src="${product.imageUrl}"
+                        />
+                      </div>
+                      <div class="col-md-6 mt-1">
+                        <h4>${product.name}</h4>
+                        <div class="d-flex flex-row">
+                          <div class="ratings mr-2">
+                            <i class="fa fa-star"></i
+                            ><i class="fa fa-star"></i
+                            ><i class="fa fa-star"></i
+                            ><i class="fa fa-star"></i>
+                          </div>
+                        </div>
+                        <div class="mt-1 mb-1 spec-1">
+                        Loại cây: <span>${product.specy}</span>
+                      </div>
+
+                        <p class="text-justify text-truncate para mb-0">
+                        ${product.detail}
+                        <br /><br />
+                        </p>phẩm
+                      </div>
+                      <div
+                        class="align-items-center align-content-center col-md-3 border-left mt-1"
+                      >
+                        <div class="d-flex flex-column align-items-left">
+                          <h5>Giá:</h5>
+                          <h4 class="mr-1">${product.price}</h4>
+                        </div>
+
+                        <div class="d-flex flex-column mt-4">
+                          <button
+                            class="btn btn-primary btn-sm"
+                            type="button" onclick=handleEdit('${product.id}')
+                          >
+                          <a href="#backtop">Sửa sản phẩm</a></button</button
+                          ><button
+                            class="btn btn-outline-primary btn-sm mt-2"
+                            type="button" onclick=handleDelete('${product.id}')
+                          >
+                          Xoá sản phẩm
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>`;
+        });
+        urbanTree.innerHTML = contentUrban;
+
+        //  render sản phẩm cây hoa các loại
+        let contentFlower = "";
+        flowerTreeDB.forEach((product) => {
+          contentFlower += `<div class="container">
+                <div class="d-flex justify-content-center row">
+                  <div class="col-md-10">
+                    <div class="row p-2 bg-white border rounded">
+                      <div class="col-md-3 mt-1">
+                        <img
+                          class="img-fluid img-responsive rounded product-image"
+                          src="${product.imageUrl}"
+                        />
+                      </div>
+                      <div class="col-md-6 mt-1">
+                        <h4>${product.name}</h4>
+                        <div class="d-flex flex-row">
+                          <div class="ratings mr-2">
+                            <i class="fa fa-star"></i
+                            ><i class="fa fa-star"></i
+                            ><i class="fa fa-star"></i
+                            ><i class="fa fa-star"></i>
+                          </div>
+                        </div>
+                        <div class="mt-1 mb-1 spec-1">
+                        Loại cây: <span>${product.specy}</span>
+                      </div>
+
+                        <p class="text-justify text-truncate para mb-0">
+                        ${product.detail}
+                        <br /><br />
+                        </p>
+                      </div>
+                      <div
+                        class="align-items-center align-content-center col-md-3 border-left mt-1"
+                      >
+                        <div class="d-flex flex-column align-items-left">
+                          <h5>Giá:</h5>
+                          <h4 class="mr-1">${product.price}</h4>
+                        </div>
+
+                        <div class="d-flex flex-column mt-4">
+                          <button
+                            class="btn btn-primary btn-sm"
+                            type="button" onclick=handleEdit('${product.id}')
+                          >
+                          <a href="#backtop">Sửa sản phẩm</a></button
+                          ><button
+                            class="btn btn-outline-primary btn-sm mt-2"
+                            type="button" onclick=handleDelete('${product.id}')
+                          >
+                          Xoá sản phẩm
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>`;
+        });
+        flowerTree.innerHTML = contentFlower;
+
+        //  render sản phẩm cây bonsai
+        let contentBonsai = "";
+        bonsaiTreeDB.forEach((product) => {
+          contentBonsai += `<div class="container">
+                <div class="d-flex justify-content-center row">
+                  <div class="col-md-10">
+                    <div class="row p-2 bg-white border rounded">
+                      <div class="col-md-3 mt-1">
+                        <img
+                          class="img-fluid img-responsive rounded product-image"
+                          src="${product.imageUrl}"
+                        />
+                      </div>
+                      <div class="col-md-6 mt-1">
+                        <h4>${product.name}</h4>
+                        <div class="d-flex flex-row">
+                          <div class="ratings mr-2">
+                            <i class="fa fa-star"></i
+                            ><i class="fa fa-star"></i
+                            ><i class="fa fa-star"></i
+                            ><i class="fa fa-star"></i>
+                          </div>
+                        </div>
+                        <div class="mt-1 mb-1 spec-1">
+                        Loại cây: <span>${product.specy}</span>
+                      </div>
+
+                        <p class="text-justify text-truncate para mb-0">
+                        ${product.detail}
+                        <br /><br />
+                        </p>
+                      </div>
+                      <div
+                        class="align-items-center align-content-center col-md-3 border-left mt-1"
+                      >
+                        <div class="d-flex flex-column align-items-left">
+                          <h5>Giá:</h5>
+                          <h4 class="mr-1">${product.price}</h4>
+                        </div>
+
+                        <div class="d-flex flex-column mt-4">
+                          <button
+                            class="btn btn-primary btn-sm"
+                            type="button" onclick=handleEdit('${product.id}')
+                          >
+                          <a href="#backtop">Sửa sản phẩm</a></button</button
+                          ><button
+                            class="btn btn-outline-primary btn-sm mt-2"
+                            type="button" onclick=handleDelete('${product.id}')
+                          >
+                          Xoá sản phẩm
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>`;
+        });
+        bonsaiTree.innerHTML = contentBonsai;
+      }
+
+      function handleEdit(id) {
+        const imgEdit = document.querySelector("#image-url");
+        const idEdit = document.querySelector("#id-product");
+        const nameEdit = document.querySelector("#name-product");
+        const specyEdit = document.querySelector("#tree-specy");
+        const detailEdit = document.querySelector("#tree-detail");
+        const priceEdit = document.querySelector("#name-price");
+        const productsDB =
+          JSON.parse(localStorage.getItem("products")) ?? [];
+        let productEdit;
+        productsDB.forEach((product, index) => {
+          if (product.id == id) {
+            productEdit = product;
+          }
+          return;
+        });
+
+        console.log("img", imgEdit);
+        idEdit.value = productEdit.id;
+        nameEdit.value = productEdit.name;
+        specyEdit.value = productEdit.specy;
+        detailEdit.value = productEdit.detail;
+        priceEdit.value = productEdit.price;
+        // Func ẩn hiện Form điều khiển Edit sản phẩm
+        const areaEdit = document.querySelector(".edit-product");
+        if (
+          !areaEdit.style.display ||
+          areaEdit.style.display === "none"
+        ) {
+          areaEdit.style.display = "block";
+        } else {
+          areaEdit.style.display = "none";
+        }
+      }
+
+      function saveEdit() {
+        const valueId = document.querySelector("#id-product").value;
+        const valueName =
+          document.querySelector("#name-product").value;
+        const valueSpecy =
+          document.querySelector("#tree-specy").value;
+
+        // console.log('specy',valueSpecy);
+
+        // const ab=document.querySelector("#image-url").value
+        // console.log(77,ab.slice(12));
+
+        // let valueImage =fomatSrcImage(document.querySelector("#image-url"))
+
+        if (valueSpecy == "Cây công trình") {
+          valueImage =
+            "../images/construct-tree/" +
+            document.querySelector("#image-url").value.slice(12);
+        }
+
+        if (valueSpecy == "Cây xanh đô thị") {
+          valueImage =
+            "../images/urban-tree/" +
+            document.querySelector("#image-url").value.slice(12);
+        }
+
+        if (valueSpecy == "Cây hoa các loại") {
+          let valueImage =
+            "../images/flower-tree/" +
+            document.querySelector("#image-url").value.slice(12);
+        }
+
+        if (valueSpecy == "Cây nghệ thuật Bonsai") {
+          let valueImage =
+            "../images/Bonsai-Japan/" +
+            document.querySelector("#image-url").value.slice(12);
+        }
+        const valueDetail =
+          document.querySelector("#tree-detail").value;
+        const valuePrice =
+          document.querySelector("#name-price").value;
+
+        // console.log(100, valueImage);
+        const saveProductList = {
+          id: valueId,
+          name: valueName,
+          specy: valueSpecy,
+          price: valuePrice,
+          imageUrl: valueImage,
+          detail: valueDetail,
+        };
+        console.log("save value update", saveProductList);
+
+        const productsDB =
+          JSON.parse(localStorage.getItem("products")) ?? [];
+        productsDB.forEach((product, pos) => {
+          if (product.id === valueId) {
+            productsDB.splice(pos, 1, saveProductList);
+          }
+        });
+        console.log(66, productsDB);
+        // Lưu lại dữ liệu sau chỉnh sửa Product lên Localstorage
+        localStorage.setItem("products", JSON.stringify(productsDB));
+
+        // Render lại sản phẩm
+        renderTree();
+        //   Gán lại bằng ""
+        document.querySelector("#id-product").value = "";
+        document.querySelector("#name-product").value = "";
+        document.querySelector("#tree-specy").value = "";
+        document.querySelector("#tree-detail").value = "";
+        document.querySelector("#name-price").value = "";
+        document.querySelector("#imageUrl-product").value = "";
+        // Func ẩn hiện Form điều khiển Edit sản phẩm
+        const areaEdit = document.querySelector(".edit-product");
+        if (
+          !areaEdit.style.display ||
+          areaEdit.style.display === "none"
+        ) {
+          areaEdit.style.display = "block";
+        } else {
+          areaEdit.style.display = "none";
+        }
+      }
+
+      function handleDelete(id) {
+        const productsDB =
+          JSON.parse(localStorage.getItem("products")) ?? [];
+        productsDB.forEach((product, pos) => {
+          if (product.id == id) {
+            productsDB.splice(pos, 1);
+          }
+        });
+        localStorage.setItem("products", JSON.stringify(productsDB));
+
+        // Render lại sản phẩm
+        renderTree();
+      }
+
+      function handleAdd() {
+        const addId = document.querySelector("#id-product-add").value;
+        const addImage =
+          document.querySelector("#image-url-add").value;
+        const addName = document.querySelector(
+          "#name-product-add"
+        ).value;
+        const addPrice = document.querySelector("#price-add").value;
+        const addSpecy = document.querySelector("#specy-add").value;
+        const addDetail = document.querySelector("#detail-add").value;
+        const productsDB =
+          JSON.parse(localStorage.getItem("products")) ?? [];
+
+        let isDulicate = false;
+        productsDB.forEach((product) => {
+          if (product.id === addId) {
+            isDulicate = true;
+            return;
+          }
+        });
+        if (isDulicate || !addId) {
+          return alert("ID trùng hoặc trống, vui lòng đặt ID mới");
+        } else {
+          const productAdd = {
+            name: addName,
+            price: addPrice,
+            imageUrl:
+              "../images/construct-tree/" + addImage.slice(12),
+            // imageUrl: "../images/urban-tree/" + addImage.slice(12),
+            // imageUrl: "../images/flower-tree/" + addImage.slice(12),
+            // imageUrl: "../images/Bonsai-Japan/" + addImage.slice(12),
+            id: addId,
+            specy: addSpecy,
+            detail: addDetail,
+          };
+
+          productsDB.push(productAdd);
+          localStorage.setItem(
+            "products",
+            JSON.stringify(productsDB)
+          );
+
+          renderTree();
+        }
+      }
+
+      function handleSearch() {
+        const valueSearch =
+          document.querySelector("#search-product").value;
+        const productDB = JSON.parse(
+          localStorage.getItem("products")
+        );
+        let result = [];
+        productDB.forEach((product) => {
+          let arrName = product.name.toLowerCase();
+
+          if (arrName.includes(valueSearch.toLowerCase().trim())) {
+            result.push(product);
+          }
+        });
+      }
+      //   render kết quả tìm kiếm
+      //   renderResult();
+      //   function renderResult() {
+      //     let contentUser = "";
+      //     const elementUser = document.querySelector("#id-tbody");
+      //     result.forEach((user, index) => {
+      //       contentUser += ``;
+      //     });
+      //     elementUser.innerHTML = contentUser;
+      //   }
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+  </body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Quản lý đơn hàng</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        background-color: #fff3ed;
+        margin: 0 auto;
+        width: 100%;
+        /* padding: 20px 50px; */
+      }
+      header {
+        background-color: white;
+        padding: 10px 20px 0;
+        margin-left: 0;
+      }
+      table {
+        border-collapse: separate;
+        border-spacing: 0 1em;
+        padding: 20px 50px;
+        border-radius: 10px;
+      }
+      tr {
+        margin-top: 30px;
+      }
+      th,
+      td {
+        margin-top: 50px;
+        margin-bottom: 20px;
+        background-color: white;
+      }
+      header img {
+        width: 80px;
+        height: 80px;
+      }
+      header > div {
+        display: flex;
+        /* gap: 30px; */
+        align-items: center;
+        padding-left: 100px;
+      }
+      #company {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+        padding-right: 20px;
+        color: green;
+      }
+      #title {
+        padding-left: 30px;
+        border-left: 3px solid #d69643;
+        color: green;
+        font-size: 25px;
+      }
+      .center {
+        text-align: center;
+      }
+      right {
+        text-align: right;
+      }
+      #buy {
+        background-color: green;
+        color: white;
+        padding: 10px 50px;
+        border: none;
+        border-radius: 5px;
+      }
+      #id-delete {
+        background-color: rgb(192, 199, 99);
+        border: none;
+        border-radius: 5px;
+        color: white;
+      }
+      #view-detail {
+        background-color: rgb(117, 132, 173);
+        border: none;
+        border-radius: 5px;
+        color: white;
+      }
+      #number-product {
+        max-width: 60px;
+        text-align: center;
+        border: none;
+        padding: 0 8px;
+        margin-left: 3px;
+        font-weight: 400;
+      }
+      .quantity {
+        padding: 3px 10px;
+        font-size: 20px;
+        color: #a7959e;
+        cursor: pointer;
+      }
+      #mySelect {
+        padding: 5px;
+        border: 0.5px solid grey;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <img src="../images/logo/Tree-Beauty.jpg" alt="" />
+        <div id="company">
+          <b>CÂY XINH</b>
+          <b>MIỀN TRUNG</b>
+        </div>
+        <b id="title">Quản lý đơn hàng</b>
+      </div>
+    </header>
+    <table cellpadding="20" class="container" id="table-product">
+      <thead>
+        <tr>
+          <th class="col-lg-1 center">ID</th>
+          <th class="col-lg-2">Người tạo đơn hàng</th>
+          <th class="col-lg-2 right">Ngày tạo</th>
+          <th class="col-lg-2 right">Giá trị đơn hàng</th>
+          <th class="col-lg-2 center">Chi tiết đơn hàng</th>
+          <th class="col-lg-2 center">Trạng thái</th>
+          <th class="col-lg-1 center">Thao tác</th>
+        </tr>
+      </thead>
+      <tbody id="content-order">
+        <tr>
+          <td class="col-lg-1 center">1</td>
+          <td class="col-lg-2">Lê Văn A</td>
+          <td class="col-lg-2 right">07/05/2023</td>
+          <td class="col-lg-2 right">100.000.000 đồng</td>
+          <td class="col-lg-2 center">
+            <button id="view-detail" onclick="viewDetail(this)">
+              Xem chi tiết
+            </button>
+          </td>
+          <td class="col-lg-2 center">
+            <select id="mySelect">
+              <option value="Đơn hàng mới">Đơn hàng mới</option>
+              <option value="Đang xử lý">Đang xử lý</option>
+              <option value="Hoàn thành">Hoàn thành</option>
+            </select>
+          </td>
+          <td class="col-lg-1 center">
+            <button id="id-delete" onclick="deleteOrder(this)">
+              Xoá
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-lg-1 center">1</td>
+          <td class="col-lg-2">Lê Văn A</td>
+          <td class="col-lg-2 right">07/05/2023</td>
+          <td class="col-lg-2 right">100.000.000 đồng</td>
+          <td class="col-lg-2 center">
+            <button id="view-detail" onclick="viewDetail(this)">
+              Xem chi tiết
+            </button>
+          </td>
+          <td class="col-lg-2 center">
+            <select id="mySelect">
+              <option value="Đơn hàng mới">Đơn hàng mới</option>
+              <option value="Đang xử lý">Đang xử lý</option>
+              <option value="Hoàn thành">Hoàn thành</option>
+            </select>
+          </td>
+          <td class="col-lg-1 center">
+            <button id="id-delete" onclick="deleteOrder(this)">
+              Xoá
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <script>
+      // Render tất cả các đơn hàng của User
+      renderOrder();
+      function renderOrder() {
+        const areaOrder = document.querySelector("#content-order");
+        const userDB = JSON.parse(localStorage.getItem("users"));
+        console.log(11, userDB);
+        let allOlder = "";
+        let numberOrder = 0;
+        userDB.forEach((user, index) => {
+          if (user.cartHistory.length != 0) {
+            user.cartHistory.forEach((cart, pos) => {
+              numberOrder++;
+              allOlder += `<tr>
+          <td class="col-lg-1 center">${numberOrder}</td>
+          <td class="col-lg-2">${user.username}</td>
+          <td class="col-lg-2 right">${user.order[pos].date}</td>
+          <td class="col-lg-2 right">${user.totalAmount[pos]} đồng</td>
+          <td class="col-lg-2 center">
+            <button id="view-detail" onclick="viewDetail('${user.username}','${user.order[pos].date}')">
+              Xem chi tiết
+            </button>
+          </td>
+          <td class="col-lg-2 center">
+            <select id="mySelect">
+              <option value="Đơn hàng mới">Đơn hàng mới</option>
+              <option value="Đang xử lý">Đang xử lý</option>
+              <option value="Hoàn thành">Hoàn thành</option>
+            </select>
+          </td>
+          <td class="col-lg-1 center">
+            <button id="id-delete" onclick="deleteOrder('${user.username}','${user.order[pos].date}')">
+              Xoá
+            </button>
+          </td>
+        </tr>`;
+            });
+          }
+        });
+        areaOrder.innerHTML = allOlder;
+      }
+
+      //   Khi Click vào xem chi tiết đơn hàng
+      function viewDetail(userName, dateDetail) {
+        window.location = `view-detail-order.html?userAndDate=${userName},${dateDetail}`;
+      }
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

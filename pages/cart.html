@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <title>Giỏ hàng</title>
+    <style>
+      body {
+        background-color: #fff3ed;
+        margin: 0 auto;
+        width: 100%;
+        /* padding: 20px 50px; */
+      }
+      header {
+        background-color: white;
+        padding: 10px 20px 0;
+        margin-left: 0;
+      }
+      table {
+        border-collapse: separate;
+        border-spacing: 0 1em;
+        padding: 20px 50px;
+        border-radius: 10px;
+      }
+      tr {
+        margin-top: 30px;
+      }
+      th,
+      td {
+        margin-top: 50px;
+        margin-bottom: 20px;
+        background-color: white;
+      }
+      header img {
+        width: 80px;
+        height: 80px;
+      }
+      header > div {
+        display: flex;
+        /* gap: 30px; */
+        align-items: center;
+        padding-left: 100px;
+      }
+      #company {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+        padding-right: 20px;
+        color: green;
+      }
+      #title {
+        padding-left: 30px;
+        border-left: 3px solid #d69643;
+        color: green;
+        font-size: 25px;
+      }
+      .center {
+        text-align: center;
+      }
+      #buy {
+        background-color: green;
+        color: white;
+        padding: 10px 50px;
+        border: none;
+        border-radius: 5px;
+      }
+      #id-delete {
+        background-color: rgb(192, 199, 99);
+        border: none;
+        border-radius: 5px;
+        color: white;
+      }
+      #number-product {
+        max-width: 60px;
+        text-align: center;
+        border: none;
+        padding: 0 8px;
+        margin-left: 3px;
+        font-weight: 400;
+      }
+      .quantity {
+        padding: 3px 10px;
+        font-size: 20px;
+        color: #a7959e;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <a href="../index.html"
+          ><img src="../images/logo/Tree-Beauty.jpg" alt=""
+        /></a>
+        <div id="company">
+          <b>CÂY XINH</b>
+          <b>MIỀN TRUNG</b>
+        </div>
+        <b id="title">Giỏ hàng</b>
+      </div>
+    </header>
+    <table cellpadding="20" class="container" id="table-product">
+      <thead>
+        <tr>
+          <th class="col-lg-1">STT</th>
+          <th class="col-lg-3">Sản phẩm</th>
+          <th class="col-lg-2">Phân loại sản phẩm</th>
+          <th class="col-lg-2 center">Đơn giá</th>
+          <th class="col-lg-1 center">Số lượng</th>
+          <th class="col-lg-2 center">Thành tiền</th>
+          <th class="col-lg-1">Thao tác</th>
+        </tr>
+      </thead>
+      <tbody id="content-cart">
+        <tr>
+          <td class="col-lg-1"></td>
+          <td class="col-lg-3"></td>
+          <td></td>
+          <td class="col-lg-2 center"></td>
+          <td class="col-lg-2 center" id="area-quantity">
+            <span class="quantity" onclick="minusProduct()">
+              <strong>-</strong>
+            </span>
+            <input
+              type="number"
+              min="1"
+              value="1"
+              id="number-product"
+            />
+            <span class="quantity" onclick="plusProduct()"
+              ><strong>+</strong></span
+            >
+          </td>
+          <td class="col-lg-2 center"></td>
+          <td class="col-lg-1">
+            <button id="id-delete" onclick="deleteProduct(this)">
+              Xoá
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot id="id-total">
+        <tr>
+          <td colspan="3"></td>
+          <td colspan="2" class="center">
+            Tổng cộng:
+            <b></b>
+          </td>
+          <td colspan="2">
+            <button id="buy" onclick="buyProduct()">Mua hàng</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    <!-- Show lịch sử các đơn hàng đã đặt -->
+
+    <h3 style="text-align: center; margin-top: 20px">
+      Xem lịch sử các đơn hàng
+    </h3>
+    <table
+      cellpadding="20"
+      class="container"
+      id="table-product-history"
+    >
+      <thead>
+        <tr>
+          <th class="col-lg-1">STT</th>
+          <th class="col-lg-3">Sản phẩm</th>
+          <th class="col-lg-2">Phân loại sản phẩm</th>
+          <th class="col-lg-2 center">Đơn giá</th>
+          <th class="col-lg-1 center">Số lượng</th>
+          <th class="col-lg-2 center">Thành tiền</th>
+        </tr>
+      </thead>
+      <tbody id="content-cart-history">
+        <tr>
+          <td class="col-lg-1"></td>
+          <td class="col-lg-3"></td>
+          <td></td>
+          <td class="col-lg-2 center"></td>
+          <td class="col-lg-2 center" id="area-quantity-history"></td>
+          <td class="col-lg-2 center"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script>
+      renderHistoryCart();
+      function renderHistoryCart() {
+        const usersDB =
+          JSON.parse(localStorage.getItem("users")) ?? [];
+        const userLogin =
+          JSON.parse(localStorage.getItem("userLogin")) ?? [];
+        let userHistory = "";
+        usersDB.forEach((user) => {
+          if (user.email == userLogin.email) {
+            userHistory = user;
+            return;
+          }
+        });
+        const cartHistory = userHistory.cartHistory;
+        console.log(22, cartHistory);
+        const contentHistory = document.querySelector(
+          "#content-cart-history"
+        );
+
+        let areaHistory = "";
+        cartHistory.forEach((carts, index) => {
+          carts.forEach((cart, pos) => {
+            areaHistory += `<tr>
+          <td class="col-lg-1">${pos + 1}</td>
+          <td class="col-lg-3">${cart.name}</td>
+          <td class="col-lg-2">${cart.specy}</td>
+          <td class="col-lg-2 center">${cart.price}</td>
+          <td class="col-lg-2 center" id="area-quantity-history">${
+            cart.quantity
+          }</td>
+          <td class="col-lg-2 center">${(
+            Number(cart.quantity) *
+            Number(
+              cart.price
+                .slice(0, cart.price.length - 5)
+                .split(".")
+                .join("")
+            )
+          )
+            .toLocaleString()
+            .split(",")
+            .join(".")}</td>
+        </tr>`;
+          });
+          // render phần tính tổng lịch sử của từng đơn hàng
+          console.log(44, areaHistory);
+          areaHistory += `<tr>
+            <td colspan="4" style="text-align: right"> <span style="text-decoration: underline"> Ngày tạo đơn hàng:</span> <b>${userHistory.order[index].date}<b></td>            
+              <td colspan="2" class="center">
+            Tổng cộng:
+            <b>${userHistory.totalAmount[index]}</b>
+            
+          </td>
+            </tr>`;
+          console.log(33, userHistory.totalAmount[index]);
+        });
+        contentHistory.innerHTML = areaHistory;
+      }
+
+      // Render giỏ hàng: thông tin lấy từ users trong Loacalstorage, key: cart
+      renderCart();
+      function renderCart() {
+        const usersDB =
+          JSON.parse(localStorage.getItem("users")) ?? [];
+        const userLogin =
+          JSON.parse(localStorage.getItem("userLogin")) ?? [];
+        let userAction = "";
+        usersDB.forEach((user) => {
+          if (user.email == userLogin.email) {
+            userAction = user;
+            return;
+          }
+        });
+        const cartChoosen = userAction.cart;
+        // console.log(22, cartChoosen);
+        const contentTr = document.querySelector("#content-cart");
+        let areaProduct = "";
+        cartChoosen.forEach((cart, index) => {
+          areaProduct += `<tr>
+        <td class="col-lg-1">${index + 1}</td>
+          <td class="col-lg-3">${cart.name}</td>
+          <td>${cart.specy}</td>
+          <td class="col-lg-2 center" id="id-price">${cart.price}</td>
+          <td class="col-lg-2 center" id="area-quantity">
+            <span class="quantity" onclick="minusProduct('${
+              cart.id
+            }')">
+              <strong>-</strong>
+            </span>
+            <input
+              type="number"
+              min="1"
+              value="${cart.quantity}"
+              id="number-product"
+            />
+            <span class="quantity" onclick="plusProduct('${cart.id}')"
+              ><strong>+</strong></span
+            >
+          </td>
+          <td class="col-lg-2 center">${(
+            Number(cart.quantity) *
+            Number(
+              cart.price
+                .slice(0, cart.price.length - 5)
+                .split(".")
+                .join("")
+            )
+          )
+            .toLocaleString()
+            .split(",")
+            .join(".")}</td>
+          <td class="col-lg-1">
+            <button id="id-delete" onclick="deleteProduct('${
+              cart.id
+            }')">
+              Xoá
+            </button>
+          </td>
+          </tr>`;
+        });
+        contentTr.innerHTML = areaProduct;
+
+        // render phần tính tổng đơn hàng
+        const areaTotal = document.querySelector("#id-total");
+        areaTotal.innerHTML = `<tr>
+      <td colspan="3"></td>
+          <td colspan="2" class="center">
+            Tổng cộng: 
+            <b>${handleTotal()}</b>
+          </td>
+          <td colspan="2">
+            <button id="buy" onclick="buyProduct()">Mua hàng</button>
+          </td>
+          </tr>`;
+      }
+
+      // Khi Click tăng số lượng sản phẩm
+      function plusProduct(id) {
+        const usersDB =
+          JSON.parse(localStorage.getItem("users")) ?? [];
+        const userLogin =
+          JSON.parse(localStorage.getItem("userLogin")) ?? [];
+        let userAction = "";
+        usersDB.forEach((user) => {
+          if (user.email == userLogin.email) {
+            userAction = user;
+            return;
+          }
+        });
+
+        const cartChoosen = userAction.cart;
+        cartChoosen.forEach((cart, index) => {
+          if (cart.id == id) {
+            cart.quantity = Number(cart.quantity) + 1;
+
+            return;
+          }
+        });
+        userAction.cart = cartChoosen;
+        usersDB.forEach((user, pos) => {
+          if (userAction.email == user.email) {
+            usersDB.splice(pos, 1, userAction);
+            return;
+          }
+        });
+        localStorage.setItem("users", JSON.stringify(usersDB));
+        renderCart();
+      }
+
+      // Khi Click giảm số lượng sản phẩm
+      function minusProduct(id) {
+        const usersDB =
+          JSON.parse(localStorage.getItem("users")) ?? [];
+        const userLogin =
+          JSON.parse(localStorage.getItem("userLogin")) ?? [];
+        let userAction = "";
+        usersDB.forEach((user) => {
+          if (user.email == userLogin.email) {
+            userAction = user;
+            return;
+          }
+        });
+        const cartChoosen = userAction.cart;
+        cartChoosen.forEach((cart) => {
+          if (cart.id == id && Number(cart.quantity) > 1) {
+            cart.quantity = Number(cart.quantity) - 1;
+            return;
+          }
+        });
+        userAction.cart = cartChoosen;
+        usersDB.forEach((user, pos) => {
+          if (userAction.email == user.email) {
+            usersDB.splice(pos, 1, userAction);
+            return;
+          }
+        });
+        localStorage.setItem("users", JSON.stringify(usersDB));
+        renderCart();
+      }
+
+      //   XOá sản phẩm trong Giỏ hàng
+      function deleteProduct(id) {
+        // console.log(66, id);
+        const usersDB =
+          JSON.parse(localStorage.getItem("users")) ?? [];
+        const userLogin =
+          JSON.parse(localStorage.getItem("userLogin")) ?? [];
+        let userAction = "";
+        usersDB.forEach((user) => {
+          if (user.email == userLogin.email) {
+            userAction = user;
+            return;
+          }
+        });
+        userAction.cart.forEach((cart, index) => {
+          if (cart.id == id) {
+            userAction.cart.splice(index, 1);
+            return;
+          }
+        });
+        usersDB.forEach((user, pos) => {
+          if (userAction.email == user.email) {
+            usersDB.splice(pos, 1, userAction);
+            return;
+          }
+        });
+        localStorage.setItem("users", JSON.stringify(usersDB));
+        renderCart();
+      }
+
+      // Tính tổng tiền của Giỏ hàng
+      function handleTotal() {
+        const usersDB =
+          JSON.parse(localStorage.getItem("users")) ?? [];
+        const userLogin =
+          JSON.parse(localStorage.getItem("userLogin")) ?? [];
+        let userAction = "";
+        usersDB.forEach((user) => {
+          if (user.email == userLogin.email) {
+            userAction = user;
+            return;
+          }
+        });
+        let carts = userAction.cart;
+        let sumCart = 0;
+        carts.forEach((cart) => {
+          itemQuantity = Number(cart.quantity);
+          itemPrice = cart.price
+            .slice(0, cart.price.length - 5)
+            .split(".")
+            .join("");
+          sumCart += itemQuantity * itemPrice;
+        });
+        // userAction.cart.totalAmount = sumCart;
+        // console.log(123, userAction);
+        // usersDB.forEach((user, pos) => {
+        //   if (userAction.email == user.email) {
+        //     usersDB.splice(pos, 1, userAction);
+        //     return;
+        //   }
+        // });
+        // localStorage.setItem("users", JSON.stringify(usersDB));
+
+        return sumCart.toLocaleString().split(",").join(".");
+      }
+
+      // Khi Click vào Mua hàng => hiển thị thông tin của người mua hàng
+      function buyProduct() {
+        window.location = `shipment-detail.html?sumCart=${handleTotal()}`;
+      }
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

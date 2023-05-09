@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <title>Thông tin giao hàng</title>
+    <style>
+      body {
+        background-color: #fff3ed;
+        margin: 0 auto;
+        width: 50%;
+        /* padding-left: 200px;
+        padding-right: 200px; */
+      }
+      header {
+        background-color: white;
+        padding: 10px 20px 0;
+        margin-left: 0;
+      }
+      table {
+        border-collapse: separate;
+        border-spacing: 0 1em;
+        padding: 20px 30px;
+        border-radius: 10px;
+      }
+      tr {
+        margin-top: 30px;
+      }
+      th,
+      td {
+        margin-top: 50px;
+        margin-bottom: 20px;
+        background-color: white;
+      }
+      header img {
+        width: 80px;
+        height: 80px;
+      }
+      header > div {
+        display: flex;
+        align-items: center;
+        padding-left: 100px;
+      }
+      #company {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px;
+        padding-right: 20px;
+        color: green;
+      }
+      #title {
+        padding-left: 30px;
+        border-left: 3px solid #d69643;
+        color: green;
+        font-size: 25px;
+      }
+      .center {
+        text-align: center;
+      }
+      input {
+        padding: 10px;
+        border-color: rgb(236, 211, 211);
+        width: 400px;
+      }
+      #save-info {
+        background-color: rgb(153, 189, 153);
+        color: white;
+        padding: 10px 50px;
+        border: none;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <img src="../images/logo/Tree-Beauty.jpg" alt="" />
+        <div id="company">
+          <b>CÂY XINH</b>
+          <b>MIỀN TRUNG</b>
+        </div>
+        <b id="title">Thông tin giao hàng</b>
+      </div>
+    </header>
+    <table cellpadding="10" class="container" id="table-product">
+      <thead>
+        <tr>
+          <th class="col-lg-6" colspan="2">Thông tin giao hàng</th>
+        </tr>
+      </thead>
+      <tbody id="content-cart">
+        <tr>
+          <td class="col-lg-6">
+            <label for="">Họ tên</label>
+            <br />
+            <input type="text" placeholder="Họ tên" id="name" />
+          </td>
+          <td class="col-lg-6">
+            <label for="">Địa chỉ nhận hàng</label>
+            <br />
+            <input
+              type="text"
+              placeholder="Nhập Địa chỉ của bạn"
+              id="address"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td class="col-lg-6">
+            <label for="">Số điện thoại</label>
+            <br />
+            <input
+              type="text"
+              placeholder="Nhập số điện thoại của bạn"
+              id="phone"
+            />
+          </td>
+          <td class="col-lg-6">
+            <label for="">Tỉnh/Thành phố</label>
+            <br />
+            <input type="text" placeholder="Chọn Tỉnh/TP" id="city" />
+          </td>
+        </tr>
+        <tr>
+          <td class="col-lg-6"></td>
+          <td class="col-lg-6">
+            <label for="">Quận/Huyện</label>
+            <br />
+            <input
+              type="text"
+              placeholder="Chọn Quận/Huyện"
+              id="district"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td class="col-lg-6"></td>
+          <td class="col-lg-6">
+            <label for="">Phường/Xã</label>
+            <br />
+            <input
+              type="text"
+              placeholder="Chọn Phường/Xã"
+              id="ward"
+            />
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td class="center" colspan="2">
+            <button id="save-info" onclick="saveInfo()">LƯU</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+    <script>
+      const url = new URL(document.URL);
+      const sumOrder = url.searchParams.get("sumCart");
+      console.log("tong", sumOrder);
+
+      function saveInfo() {
+        const fullName = document.querySelector("#name").value;
+        const phoneUser = document.querySelector("#phone").value;
+        const addressUser = document.querySelector("#address").value;
+        const cityUser = document.querySelector("#city").value;
+        const districtUser =
+          document.querySelector("#district").value;
+        const wardUser = document.querySelector("#ward").value;
+        let dateCreate = new Date();
+        let shortDate =
+          dateCreate.getDate() +
+          "/" +
+          Number(dateCreate.getMonth() + 1) +
+          "/" +
+          dateCreate.getFullYear() +
+          " " +
+          dateCreate.getHours() +
+          ":" +
+          dateCreate.getMinutes() +
+          ":" +
+          dateCreate.getSeconds();
+        console.log(55, shortDate);
+        const infoOlder = {
+          fullName: fullName,
+          phone: phoneUser,
+          address: phoneUser,
+          city: cityUser,
+          district: districtUser,
+          ward: wardUser,
+          date: shortDate,
+        };
+        console.log(33, infoOlder);
+
+        // Lưu thông tin đơn hàng lên localstorage tại key: order
+        const usersDB =
+          JSON.parse(localStorage.getItem("users")) ?? [];
+        const userLogin =
+          JSON.parse(localStorage.getItem("userLogin")) ?? [];
+        let userAction = "";
+        usersDB.forEach((user) => {
+          if (user.email == userLogin.email) {
+            userAction = user;
+            return;
+          }
+        });
+
+        userAction.order.push(infoOlder);
+        userAction.cartHistory.push(userAction.cart);
+        userAction.totalAmount.push(sumOrder);
+        userAction.cart = []; //Xoá giỏ hàng
+        usersDB.forEach((user, pos) => {
+          if (userAction.email == user.email) {
+            usersDB.splice(pos, 1, userAction);
+            return;
+          }
+        });
+        localStorage.setItem("users", JSON.stringify(usersDB));
+        window.location = "/";
+      }
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
